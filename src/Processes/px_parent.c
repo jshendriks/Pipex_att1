@@ -6,10 +6,26 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 15:12:05 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/25 17:38:49 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/05/25 18:36:08 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./processes.h"
+
+static void	st_putsplit_fd(char **split, int fd)
+{
+	int	i;
+
+	if (split != NULL)
+	{
+		i = 0;
+		while(split[i])
+		{
+			ft_putstr_fd(split[i], fd);
+			write(fd, "\n", 1);
+			i++;
+		}
+	}
+}
 
 static int	st_execute(t_px_vars *buc, int fdout, int rtnd, int exst)
 {
@@ -17,7 +33,10 @@ static int	st_execute(t_px_vars *buc, int fdout, int rtnd, int exst)
 	char	**cmnd_split;
 
 	val_cmnd = px_find_valid_cmnpath(buc, 3);
-	cmnd_split = px_split_xtr(val_cmnd, ' ');
+	ft_putstr_fd(val_cmnd, 2);
+	write(2, "\n", 1);
+	cmnd_split = px_split_xtr((buc->args)[3], ' ');
+	st_putsplit_fd(cmnd_split, 2);
 	execve(val_cmnd, cmnd_split, (buc->env));
 	px_free_split(cmnd_split);
 	if (rtnd == 0 && fdout >= 0)
