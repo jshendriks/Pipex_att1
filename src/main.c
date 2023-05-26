@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 14:12:49 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/26 15:09:59 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/05/26 18:08:58 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./src.h"
@@ -106,9 +106,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int	rtnd;
 	t_px_vars	*var_buc;
 
-	if (argc != 5)
-		return (1);
-	if (argv == NULL || envp == NULL)
+	if (px_check_args(argc, argv, envp) == 1)
 		return (1);
 	rtnd = pipe(p_fd);
 	if (rtnd == -1)
@@ -123,6 +121,12 @@ int	main(int argc, char *argv[], char *envp[])
 		close(p_fd[1]);
 		return (1);
 	}
+	if (px_check_files(var_buc) == 1)
+	{
+		ft_printf("Wrong input: Only commands\n");
+		return (1);
+	}
+	px_check_outfile(var_buc);
 	r_id = fork();
 	if (r_id == -1)
 	{

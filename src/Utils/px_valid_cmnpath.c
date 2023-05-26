@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:15:19 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/25 17:11:40 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/05/26 18:07:26 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -27,14 +27,13 @@ static char	*st_check_for_validpath(char *part_comm, char **paths_sep)
 			if (tmph2 != NULL)
 			{
 				if (access(tmph2, X_OK) == 0)
-					return (px_free_split(paths_sep), tmph2);
+					return (tmph2);
 				free(tmph2);
 			}
 			free(tmph1);
 		}
 		i++;
 	}
-	px_free_split(paths_sep);
 	return (NULL);
 
 }
@@ -55,9 +54,9 @@ char	*px_find_valid_cmnpath(t_px_vars *varbuc, int i)
 		px_free_split(comm_sep);
 	}
 	else
-		part_comm = (varbuc->args)[i];
+		part_comm = ft_strdup((char const *)((varbuc->args)[i]));
 	if (access((const char *)part_comm, X_OK) == 0)
-		return (ft_strdup((const char *)part_comm));
+		return (part_comm);
 	if ((varbuc->paths) == NULL || ((varbuc->paths)[0]) == NULL)
 		return (NULL);
 	return (st_check_for_validpath(part_comm, (varbuc->paths)));

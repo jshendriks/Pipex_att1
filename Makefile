@@ -6,7 +6,7 @@
 #    By: jhendrik <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/09 15:46:48 by jhendrik      #+#    #+#                  #
-#    Updated: 2023/05/25 17:05:57 by jhendrik      ########   odam.nl          #
+#    Updated: 2023/05/26 18:00:16 by jhendrik      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ LIBFTDIR := ./src/libft
 
 SUBDIRS := Processes \
 	 Utils \
+	 Checks
 SRCDIRS := $(foreach dir,$(SUBDIRS),$(addprefix $(SRCDIR)/,$(dir)))
 OBJDIRS := $(foreach dir,$(SUBDIRS),$(addprefix $(OBJDIR)/,$(dir)))
 
@@ -44,6 +45,7 @@ SRCFILES := Utils/px_free_split.c \
 	 Utils/px_valid_cmnpath.c \
 	 Processes/px_child.c \
 	 Processes/px_parent.c \
+	 Checks/px_checks.c \
 	 main.c
 OBJFILES :=$(addprefix $(OBJDIR)/,$(SRCFILES:$(SRCEX)=$(OBJEX)))
 
