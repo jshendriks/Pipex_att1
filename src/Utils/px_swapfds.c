@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:33:30 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/25 18:12:47 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/05/26 13:55:06 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -22,7 +22,7 @@ static int	st_fdswap_begin(t_px_vars *buc, int filefd)
 	{
 		close(filefd);
 		close(0);
-		return (1);
+		return (2);
 	}
 	if (rtnd2 == -1)
 	{
@@ -44,7 +44,7 @@ static int	st_fdswap_end(t_px_vars *buc, int filefd)
 	{
 		close(0);
 		close((buc->p_fds)[0]);
-		return (1);
+		return (2);
 	}
 	if (rtnd1 == -1)
 	{
