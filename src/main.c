@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 14:12:49 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/26 18:08:58 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/05/30 17:28:24 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./src.h"
@@ -99,17 +99,33 @@ static t_px_vars	*st_make_tpxvars(int argc, char *argv[], char *envp[], int *pfd
 	return (var_buc);
 }
 
+static int	st_error(t_px_vars *buc, int errno, char *errmess)
+{
+	if (buc != NULL && errmess != NULL)
+	{
+		perror(errmess);
+		close((buc->p_fds)[0]);
+		close((buc->p_fds)[1]);
+		if ((buc->paths) != NULL)
+			px_free_split(buc->paths);
+		free(buc);
+		return (errno);
+	}
+	return (-1);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
-	int	r_id;
-	int	p_fd[2];
-	int	rtnd;
+	pid_t		r_id1;
+	pid_t		r_id2;
+	int			p_fd[2];
+	int			status;
+	int			tmp;
 	t_px_vars	*var_buc;
 
 	if (px_check_args(argc, argv, envp) == 1)
 		return (1);
-	rtnd = pipe(p_fd);
-	if (rtnd == -1)
+	if (pipe(p_fd) == -1)
 	{
 		perror("Pipe() failed");
 		return (1);
@@ -122,26 +138,36 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	}
 	if (px_check_files(var_buc) == 1)
-	{
-		ft_printf("Wrong input: Only commands\n");
-		return (1);
-	}
+		return (st_error(var_buc, 1, "Input does not contain two files"));
 	px_check_outfile(var_buc);
-	r_id = fork();
-	if (r_id == -1)
-	{
-		perror("Fork failed");
-		close(p_fd[0]);
-		close(p_fd[1]);
-		return (1);
-	}
-	if (r_id == 0)
-	{
-		// or should you use exit? if so, what argument do you give?
-		return (px_child(var_buc));
-	}
+	r_id1 = fork();
+	if (r_id1 == -1)
+		return (st_error(var_buc, 1, "First fork() failed"));
+	if (r_id1 == 0)
+		px_first_child(var_buc);
 	else
 	{
-		return (px_parent(var_buc));
+		r_id2 = fork();
+		if (r_id2 == -1)
+			return (st_error(var_buc, 1, "Second fork() failed"));
+		if (r_id2 == 0)
+			px_sec_child(var_buc);
+		else
+		{
+			status = 0;
+			tmp = 0;
+			ft_putstr_fd("Parent process\n", 2);
+			waitpid(r_id2, &status, 0);
+			wait(&tmp);
+	//		waitpid(0, NULL, 0);
+			if (WIFEXITED(status))
+			{
+				ft_putstr_fd("Help!!\n", 2);
+				exit(WEXITSTATUS(status));
+			}
+			else
+				exit(EXIT_SUCCESS);
+		}
 	}
+
 }

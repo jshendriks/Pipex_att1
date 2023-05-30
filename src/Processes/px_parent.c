@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 15:12:05 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/26 14:27:32 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/05/30 14:53:06 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./processes.h"
@@ -69,6 +69,6 @@ int	px_parent(t_px_vars *buc)
 		if (WIFEXITED(status))
 			return (st_execute(buc, fdout, rtnd, WEXITSTATUS(status)));
 		else
-			return (st_execute(buc, fdout, rtnd, 1));
+			return (st_execute(buc, fdout, rtnd, 127));
 	}
 }
