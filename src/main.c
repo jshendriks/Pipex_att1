@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 14:12:49 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/30 17:28:24 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/02 14:57:59 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./src.h"
@@ -147,6 +147,7 @@ int	main(int argc, char *argv[], char *envp[])
 		px_first_child(var_buc);
 	else
 	{
+	//	ft_putstr_fd("Parent process after one fork\n", 2);
 		r_id2 = fork();
 		if (r_id2 == -1)
 			return (st_error(var_buc, 1, "Second fork() failed"));
@@ -156,15 +157,25 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			status = 0;
 			tmp = 0;
-			ft_putstr_fd("Parent process\n", 2);
+			close((var_buc->p_fds)[0]);
+			close((var_buc->p_fds)[1]);
+			close(p_fd[1]);
+			close(p_fd[0]);
+		//	ft_putstr_fd("Parent process after two forks\n", 2);
 			waitpid(r_id2, &status, 0);
-			wait(&tmp);
-	//		waitpid(0, NULL, 0);
+	//		wait(&tmp);
+			waitpid(0, NULL, 0);
+
+			if ((var_buc->paths) != NULL)
+				px_free_split(var_buc->paths);
+			free(var_buc);
 			if (WIFEXITED(status))
 			{
-				ft_putstr_fd("Help!!\n", 2);
+//				ft_putstr_fd("Help!!\n", 2);
 				exit(WEXITSTATUS(status));
 			}
+			else if (WIFSIGNALED(status))
+				exit(128 + WTERMSIG(status));
 			else
 				exit(EXIT_SUCCESS);
 		}

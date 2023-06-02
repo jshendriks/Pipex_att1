@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 14:10:55 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/30 16:42:38 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/02 15:04:17 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./processes.h"
@@ -78,7 +78,7 @@ int	px_first_child(t_px_vars *buc)
 		exit(EXIT_FAILURE);
 	}
 	else
-		return (st_first_execute(buc, fdin, rtnd));	
+		exit(st_first_execute(buc, fdin, rtnd));	
 }
 
 static int	st_second_execute(t_px_vars *buc, int fdout, int rtnd)
@@ -92,7 +92,6 @@ static int	st_second_execute(t_px_vars *buc, int fdout, int rtnd)
 	write(2, "\n", 1);
 	st_putsplit_fd(cmnd_split, 2);
 	execve(val_cmnd, cmnd_split, (buc->env));
-	write(2, "a\n", 2);
 	px_free_split(cmnd_split);
 	if (rtnd == 0 && fdout >= 0)
 	{
@@ -118,5 +117,5 @@ int	px_sec_child(t_px_vars *buc)
 		exit(EXIT_FAILURE);
 	}
 	else
-		return (st_second_execute(buc, fdout, rtnd));
+		exit(st_second_execute(buc, fdout, rtnd));
 }
