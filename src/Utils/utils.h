@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:29:35 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/25 17:10:38 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 10:24:30 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ char	**px_splitpaths(char *env_path);
 char	*px_find_valid_cmnpath(t_px_vars *varbuc, int i);
 
 // FUNCTIONS TO SWAP FD'S ----------------------------------------------------
-int	px_swapfds_be(t_px_vars *buc, int *p_filefd, int i);
+int		px_swapfds_be(t_px_vars *buc, int *p_filefd, int i);
 
 #endif

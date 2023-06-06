@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 17:18:36 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/26 18:11:50 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 09:38:05 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./checks.h"
@@ -56,7 +56,7 @@ int	px_check_files(t_px_vars *buc)
 		filein = px_find_valid_cmnpath(buc, 1);
 		if (fileout != NULL || filein != NULL)
 			return (st_helpfree(filein, fileout), 1);
-		return(st_helpfree(filein, fileout), 0);
+		return (st_helpfree(filein, fileout), 0);
 	}
 	return (1);
 }

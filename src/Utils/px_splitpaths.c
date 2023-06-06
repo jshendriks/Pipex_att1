@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:07:30 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/25 17:09:26 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 10:20:44 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -32,7 +32,7 @@ char	**px_splitpaths(char *env_path)
 	int		start;
 	char	*paths;
 	char	**paths_sep;
-	
+
 	if (env_path == NULL)
 		return (NULL);
 	start = st_strchr_int((const char *)env_path, '=');

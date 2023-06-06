@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 16:13:33 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/25 16:16:48 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 10:29:19 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_px_vars
 	char	**env;
 }	t_px_vars;
 
-typedef struct	s_pxsplitbuc
+typedef struct s_pxsplitbuc
 {
 	char const	*str;
 	char		**subs;

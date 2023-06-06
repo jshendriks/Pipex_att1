@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 15:12:05 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/30 14:53:06 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 10:32:54 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./processes.h"
@@ -27,48 +27,56 @@
 	}
 } */
 
-static int	st_execute(t_px_vars *buc, int fdout, int rtnd, int exst)
+static int	st_error(t_px_vars *buc, int errno, char *errmess)
 {
-	char	*val_cmnd;
-	char	**cmnd_split;
-
-	val_cmnd = px_find_valid_cmnpath(buc, 3);
-	cmnd_split = px_split_xtr((buc->args)[3], ' ');
-	execve(val_cmnd, cmnd_split, (buc->env));
-	px_free_split(cmnd_split);
-	if (rtnd == 0 && fdout >= 0)
+	if (buc != NULL && errmess != NULL)
 	{
-		close(fdout);
+		perror(errmess);
 		close((buc->p_fds)[0]);
+		close((buc->p_fds)[1]);
+		if ((buc->paths) != NULL)
+			px_free_split(buc->paths);
+		free(buc);
+		return (errno);
 	}
-	// THIS probably doesn't return correct exitcode, try to find the right one
-	perror("Execve() failed");
-	exit(exst);
+	return (-1);
 }
 
-int	px_parent(t_px_vars *buc)
+void	px_first_parent(t_px_vars *buc, int *p_fd)
 {
-	int	fdout;
-	int	*p_fdout;
-	int	rtnd;
-	int	status;
+	int	r_id2;
 
-	// HOW can you use status to return correct exitcode??
-	status = 0;
-	waitpid(-1, &status, 0);
-	fdout = -2;
-	p_fdout = &fdout;
-	rtnd = px_swapfds_be(buc, p_fdout, 4);
-	if (rtnd != 0)
-	{
-		perror("Swap function failed");
-		exit(EXIT_FAILURE);
-	}
+	r_id2 = fork();
+	if (r_id2 == -1)
+		exit(st_error(buc, 1, "Second fork() failed"));
+	if (r_id2 == 0)
+		px_sec_child(buc);
 	else
+		px_sec_parent(buc, p_fd, r_id2);
+}
+
+void	px_sec_parent(t_px_vars *buc, int *p_fd, int r_id2)
+{
+	int	status;
+	int	tmp;
+
+	status = 0;
+	tmp = 0;
+	close((buc->p_fds)[0]);
+	close((buc->p_fds)[1]);
+	close(p_fd[1]);
+	close(p_fd[0]);
+	waitpid(r_id2, &status, 0);
+	waitpid(0, NULL, 0);
+	if ((buc->paths) != NULL)
+		px_free_split(buc->paths);
+	free(buc);
+	if (WIFEXITED(status))
 	{
-		if (WIFEXITED(status))
-			return (st_execute(buc, fdout, rtnd, WEXITSTATUS(status)));
-		else
-			return (st_execute(buc, fdout, rtnd, 127));
+		exit(WEXITSTATUS(status));
 	}
+	else if (WIFSIGNALED(status))
+		exit(128 + WTERMSIG(status));
+	else
+		exit(EXIT_SUCCESS);
 }

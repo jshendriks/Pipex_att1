@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:15:19 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/26 18:07:26 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 10:24:09 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -35,7 +35,6 @@ static char	*st_check_for_validpath(char *part_comm, char **paths_sep)
 		i++;
 	}
 	return (NULL);
-
 }
 
 char	*px_find_valid_cmnpath(t_px_vars *varbuc, int i)

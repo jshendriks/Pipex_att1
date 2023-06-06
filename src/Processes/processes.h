@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 16:08:23 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/30 15:07:33 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 10:37:26 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 # include "./../types.h"
 # include "./../Utils/utils.h"
 
-int	px_first_child(t_px_vars *buc);
-int	px_sec_child(t_px_vars *buc);
+void	px_first_child(t_px_vars *buc);
+void	px_sec_child(t_px_vars *buc);
+void	px_first_parent(t_px_vars *buc, int *p_fd);
+void	px_sec_parent(t_px_vars *buc, int *p_fd, int r_id2);
 
 #endif
