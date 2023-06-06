@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 14:12:49 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 10:38:24 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 14:57:04 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./src.h"
@@ -118,21 +118,6 @@ static t_px_vars	*st_mvars(int argc, char *argv[], char *envp[], int *pfd)
 	return (var_buc);
 }
 
-static int	st_error(t_px_vars *buc, int errno, char *errmess)
-{
-	if (buc != NULL && errmess != NULL)
-	{
-		perror(errmess);
-		close((buc->p_fds)[0]);
-		close((buc->p_fds)[1]);
-		if ((buc->paths) != NULL)
-			px_free_split(buc->paths);
-		free(buc);
-		return (errno);
-	}
-	return (-1);
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	int			p_fd[2];
@@ -152,8 +137,6 @@ int	main(int argc, char *argv[], char *envp[])
 		close(p_fd[1]);
 		return (1);
 	}
-	if (px_check_files(var_buc) == 1)
-		return (st_error(var_buc, 1, "Input does not contain two files"));
 	px_check_outfile(var_buc);
-	px_mama_children(var_buc, p_fd);
+	px_mama_children(var_buc);
 }

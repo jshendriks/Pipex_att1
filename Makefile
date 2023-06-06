@@ -6,7 +6,7 @@
 #    By: jhendrik <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/09 15:46:48 by jhendrik      #+#    #+#                  #
-#    Updated: 2023/06/06 10:30:55 by jhendrik      ########   odam.nl          #
+#    Updated: 2023/06/06 14:38:08 by jhendrik      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCFILES := Utils/px_free_split.c \
 	 Utils/px_splitpaths.c \
 	 Utils/px_swapfds.c \
 	 Utils/px_valid_cmnpath.c \
+	 Utils/px_errors.c \
 	 Processes/px_child.c \
 	 Processes/px_parent.c \
 	 Checks/px_checks.c \

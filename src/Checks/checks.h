@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 17:46:43 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/05/26 18:00:28 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 14:57:48 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 
 int		px_check_args(int argc, char *argv[], char *envp[]);
 void	px_check_outfile(t_px_vars *buc);
-int		px_check_files(t_px_vars *buc);
+//int		px_check_files(t_px_vars *buc);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:29:35 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 10:24:30 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 14:28:01 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,10 @@ char	*px_find_valid_cmnpath(t_px_vars *varbuc, int i);
 
 // FUNCTIONS TO SWAP FD'S ----------------------------------------------------
 int		px_swapfds_be(t_px_vars *buc, int *p_filefd, int i);
+
+// FUNCTIONS FOR ERRORS -----------------------------------------------------
+int		px_error(t_px_vars *buc, int errno, char *errmess);
+int		px_mainerror(t_px_vars *buc, int errno, char *errmess);
+void	px_swaperror(t_px_vars *buc, int rtnd);
 
 #endif

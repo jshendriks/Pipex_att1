@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/26 17:18:36 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 09:38:05 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 14:58:23 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./checks.h"
@@ -37,7 +37,7 @@ void	px_check_outfile(t_px_vars *buc)
 	}
 }
 
-static void	st_helpfree(char *str1, char *str2)
+/*static void	st_helpfree(char *str1, char *str2)
 {
 	if (str1 != NULL)
 		free(str1);
@@ -59,4 +59,4 @@ int	px_check_files(t_px_vars *buc)
 		return (st_helpfree(filein, fileout), 0);
 	}
 	return (1);
-}
+} */

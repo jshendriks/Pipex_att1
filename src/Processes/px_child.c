@@ -6,12 +6,12 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 14:10:55 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 11:55:00 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 15:05:20 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./processes.h"
 
-/* static void	st_putsplit_fd(char **split, int fd)
+static void	st_putsplit_fd(char **split, int fd)
 {
 	int	i;
 
@@ -27,7 +27,7 @@
 	}
 	else
 		ft_putstr_fd("NULL", fd);
-} */
+}
 
 static int	st_first_execute(t_px_vars *buc, int fdin, int rtnd)
 {

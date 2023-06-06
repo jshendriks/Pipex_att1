@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   processes.h                                        :+:    :+:            */
+/*   creating.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jhendrik <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/05/25 16:08:23 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 14:34:05 by jhendrik      ########   odam.nl         */
+/*   Created: 2023/05/30 12:55:49 by jhendrik      #+#    #+#                 */
+/*   Updated: 2023/06/06 14:34:40 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROCESSES_H
-# define PROCESSES_H
+#ifndef CREATING_H
+# define CREATING_H
 
-# include <stdio.h>
-# include <string.h>
 # include <unistd.h>
-# include <sys/wait.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include "./../libft/src/libft.h"
 # include "./../types.h"
+# include "./../Processes/processes.h"
 # include "./../Utils/utils.h"
 
-void	px_first_child(t_px_vars *buc);
-void	px_sec_child(t_px_vars *buc);
-void	px_first_parent(t_px_vars *buc);
-void	px_sec_parent(t_px_vars *buc, int r_id2);
+void	px_mama_children(t_px_vars *var_buc);
 
 #endif

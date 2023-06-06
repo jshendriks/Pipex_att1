@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:33:30 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 11:40:48 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 14:26:00 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -73,9 +73,9 @@ int	px_swapfds_be(t_px_vars *buc, int *p_filefd, int i)
 	if (filefd == -1)
 	{
 		if (i == 1)
-			close((buc->p_fds)[0]);
-		else
 			close((buc->p_fds)[1]);
+		else
+			close((buc->p_fds)[0]);
 		return (1);
 	}
 	else

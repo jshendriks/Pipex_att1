@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/06 11:46:09 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 12:03:00 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/06 15:06:46 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -27,9 +27,8 @@ int	px_error(t_px_vars *buc, int errno, char *errmess)
 	return (-1);
 }
 
-int	px_mainerror(t_px_vars *buc, int errno, char *errmess, int *p_fd)
+int	px_mainerror(t_px_vars *buc, int errno, char *errmess)
 {
-
 	if (buc != NULL)
 	{
 		if (!(errmess))
@@ -38,8 +37,6 @@ int	px_mainerror(t_px_vars *buc, int errno, char *errmess, int *p_fd)
 			ft_putstr_fd(errmess, 2);
 		close((buc->p_fds)[0]);
 		close((buc->p_fds)[1]);
-		close(p_fd[0]);
-		close(p_fd[1]);
 		if ((buc->paths) != NULL)
 			px_free_split(buc->paths);
 		free(buc);
@@ -55,7 +52,7 @@ void	px_swaperror(t_px_vars *buc, int rtnd)
 		if (rtnd == -1)
 			ft_putstr_fd("No such file\n", 2);
 		else
-			ft_putstr_fd("Swap function failed", 2);
+			ft_putstr_fd("Swap function failed\n", 2);
 		if ((buc->paths) != NULL)
 			px_free_split(buc->paths);
 		free(buc);
