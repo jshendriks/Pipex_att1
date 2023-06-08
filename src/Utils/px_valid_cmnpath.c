@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:15:19 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 10:24:09 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/08 12:19:41 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -17,6 +17,8 @@ static char	*st_check_for_validpath(char *part_comm, char **paths_sep)
 	char	*tmph2;
 	int		i;
 
+	if (part_comm == NULL || paths_sep == NULL)
+		return (NULL);
 	i = 0;
 	while (paths_sep[i])
 	{
@@ -27,7 +29,7 @@ static char	*st_check_for_validpath(char *part_comm, char **paths_sep)
 			if (tmph2 != NULL)
 			{
 				if (access(tmph2, X_OK) == 0)
-					return (tmph2);
+					return (free(tmph1), tmph2);
 				free(tmph2);
 			}
 			free(tmph1);
