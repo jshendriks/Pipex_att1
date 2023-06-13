@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:33:30 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 14:26:00 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/13 09:50:04 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -54,7 +54,7 @@ static int	st_give_fd(t_px_vars *buc, int i)
 	}
 	else
 	{
-		filefd = open((buc->args)[i], O_WRONLY);
+		filefd = open((buc->args)[i], O_WRONLY | O_TRUNC);
 		close((buc->p_fds)[1]);
 	}
 	return (filefd);

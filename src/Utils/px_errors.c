@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/06 11:46:09 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 15:06:46 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/13 09:53:24 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -51,6 +51,8 @@ void	px_swaperror(t_px_vars *buc, int rtnd)
 	{
 		if (rtnd == -1)
 			ft_putstr_fd("No such file\n", 2);
+		else if (rtnd == 1)
+			ft_putstr_fd("Permission denied\n", 2);
 		else
 			ft_putstr_fd("Swap function failed\n", 2);
 		if ((buc->paths) != NULL)

@@ -6,35 +6,19 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 14:10:55 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 15:05:20 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/13 09:48:51 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./processes.h"
-
-static void	st_putsplit_fd(char **split, int fd)
-{
-	int	i;
-
-	if (split != NULL)
-	{
-		i = 0;
-		while (split[i])
-		{
-			ft_putstr_fd(split[i], fd);
-			write(fd, "\n", 1);
-			i++;
-		}
-	}
-	else
-		ft_putstr_fd("NULL", fd);
-}
 
 static int	st_first_execute(t_px_vars *buc, int fdin, int rtnd)
 {
 	char	*val_cmnd;
 	char	**cmnd_split;
+	int		found;
 
-	val_cmnd = px_find_valid_cmnpath(buc, 2);
+	found = 0;
+	val_cmnd = px_find_valid_cmnpath(buc, 2, &found);
 	cmnd_split = px_split_xtr((buc->args)[2], ' ');
 	execve(val_cmnd, cmnd_split, (buc->env));
 	px_free_split(cmnd_split);
@@ -43,7 +27,10 @@ static int	st_first_execute(t_px_vars *buc, int fdin, int rtnd)
 		close(fdin);
 		close((buc->p_fds)[1]);
 	}
-	return (px_error(buc, 127, "Command not found"));
+	if (found == 1)
+		return (px_error(buc, 126, "Permission denied (1)\n"));
+	else
+		return (px_error(buc, 127, "Command not found (1)\n"));
 }
 
 void	px_first_child(t_px_vars *buc)
@@ -65,8 +52,10 @@ static int	st_second_execute(t_px_vars *buc, int fdout, int rtnd)
 {
 	char	*val_cmnd;
 	char	**cmnd_split;
+	int		found;
 
-	val_cmnd = px_find_valid_cmnpath(buc, 3);
+	found = 0;
+	val_cmnd = px_find_valid_cmnpath(buc, 3, &found);
 	cmnd_split = px_split_xtr((buc->args)[3], ' ');
 	execve(val_cmnd, cmnd_split, (buc->env));
 	px_free_split(cmnd_split);
@@ -75,7 +64,9 @@ static int	st_second_execute(t_px_vars *buc, int fdout, int rtnd)
 		close(fdout);
 		close((buc->p_fds)[0]);
 	}
-	return (px_error(buc, 127, "Command not found"));
+	if (found == 1)
+		return (px_error(buc, 126, "Permission denied (2)\n"));
+	return (px_error(buc, 127, "Command not found (2)\n"));
 }
 
 void	px_sec_child(t_px_vars *buc)
