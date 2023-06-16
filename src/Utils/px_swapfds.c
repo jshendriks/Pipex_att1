@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:33:30 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/13 09:50:04 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/16 09:49:56 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -19,11 +19,9 @@ static int	st_fdswap_begin(t_px_vars *buc, int filefd)
 	rtnd1 = dup2(filefd, 0);
 	rtnd2 = dup2((buc->p_fds)[1], 1);
 	close(filefd);
+	close((buc->p_fds)[1]);
 	if (rtnd1 == -1 || rtnd2 == -1)
-	{
-		close((buc->p_fds)[1]);
 		return (2);
-	}
 	return (0);
 }
 
@@ -35,11 +33,9 @@ static int	st_fdswap_end(t_px_vars *buc, int filefd)
 	rtnd1 = dup2(filefd, 1);
 	rtnd2 = dup2((buc->p_fds)[0], 0);
 	close(filefd);
+	close((buc->p_fds)[0]);
 	if (rtnd2 == -1 || rtnd1 == -1)
-	{
-		close((buc->p_fds)[0]);
 		return (2);
-	}
 	return (0);
 }
 
