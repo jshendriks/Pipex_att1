@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:15:19 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/13 09:51:33 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/28 13:50:55 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -86,6 +86,11 @@ char	*px_find_valid_cmnpath(t_px_vars *varbuc, int i, int *found)
 	else if (part_comm != NULL)
 	{
 		if (part_comm[0] == '.' && access(part_comm, F_OK) == 0)
+		{
+			*found = 1;
+			return (NULL);
+		}
+		else if (access(part_comm, F_OK) == 0)
 		{
 			*found = 1;
 			return (NULL);

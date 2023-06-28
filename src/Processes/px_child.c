@@ -6,12 +6,12 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 14:10:55 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/13 09:48:51 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/06/28 14:08:57 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./processes.h"
 
-static int	st_first_execute(t_px_vars *buc, int fdin, int rtnd)
+static int	st_first_execute(t_px_vars *buc)
 {
 	char	*val_cmnd;
 	char	**cmnd_split;
@@ -22,11 +22,6 @@ static int	st_first_execute(t_px_vars *buc, int fdin, int rtnd)
 	cmnd_split = px_split_xtr((buc->args)[2], ' ');
 	execve(val_cmnd, cmnd_split, (buc->env));
 	px_free_split(cmnd_split);
-	if (rtnd == 0 && fdin >= 0)
-	{
-		close(fdin);
-		close((buc->p_fds)[1]);
-	}
 	if (found == 1)
 		return (px_error(buc, 126, "Permission denied (1)\n"));
 	else
@@ -45,10 +40,10 @@ void	px_first_child(t_px_vars *buc)
 	if (rtnd != 0)
 		px_swaperror(buc, rtnd);
 	else
-		exit(st_first_execute(buc, fdin, rtnd));
+		exit(st_first_execute(buc));
 }
 
-static int	st_second_execute(t_px_vars *buc, int fdout, int rtnd)
+static int	st_second_execute(t_px_vars *buc)
 {
 	char	*val_cmnd;
 	char	**cmnd_split;
@@ -59,11 +54,6 @@ static int	st_second_execute(t_px_vars *buc, int fdout, int rtnd)
 	cmnd_split = px_split_xtr((buc->args)[3], ' ');
 	execve(val_cmnd, cmnd_split, (buc->env));
 	px_free_split(cmnd_split);
-	if (rtnd == 0 && fdout >= 0)
-	{
-		close(fdout);
-		close((buc->p_fds)[0]);
-	}
 	if (found == 1)
 		return (px_error(buc, 126, "Permission denied (2)\n"));
 	return (px_error(buc, 127, "Command not found (2)\n"));
@@ -81,5 +71,5 @@ void	px_sec_child(t_px_vars *buc)
 	if (rtnd != 0)
 		px_swaperror(buc, rtnd);
 	else
-		exit(st_second_execute(buc, fdout, rtnd));
+		exit(st_second_execute(buc));
 }
