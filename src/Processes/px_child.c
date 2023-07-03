@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 14:10:55 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/28 14:08:57 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/07/03 13:57:51 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./processes.h"
@@ -30,13 +30,9 @@ static int	st_first_execute(t_px_vars *buc)
 
 void	px_first_child(t_px_vars *buc)
 {
-	int	fdin;
-	int	*p_fdin;
 	int	rtnd;
 
-	fdin = -2;
-	p_fdin = &fdin;
-	rtnd = px_swapfds_be(buc, p_fdin, 1);
+	rtnd = px_swapfds_be(buc, 1);
 	if (rtnd != 0)
 		px_swaperror(buc, rtnd);
 	else
@@ -61,13 +57,9 @@ static int	st_second_execute(t_px_vars *buc)
 
 void	px_sec_child(t_px_vars *buc)
 {
-	int	fdout;
-	int	*p_fdout;
 	int	rtnd;
 
-	fdout = -2;
-	p_fdout = &fdout;
-	rtnd = px_swapfds_be(buc, p_fdout, 4);
+	rtnd = px_swapfds_be(buc, 4);
 	if (rtnd != 0)
 		px_swaperror(buc, rtnd);
 	else

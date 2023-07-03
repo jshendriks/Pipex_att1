@@ -6,7 +6,7 @@
 #    By: jhendrik <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/05/09 15:46:48 by jhendrik      #+#    #+#                  #
-#    Updated: 2023/06/06 14:38:08 by jhendrik      ########   odam.nl          #
+#    Updated: 2023/07/03 13:56:19 by jhendrik      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ $(NAME): $(OBJFILES)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(SRCHEADER) | $(OBJDIR)
 	@mkdir -p $(@D)
-	@$(CC) -c $(CFLAGS) $(SRCHEADER) $<
+	@$(CC) -c $(CFLAGS) $<
 	@mv ./$(notdir $@) $(@D)
 
 make_libft:
@@ -99,6 +99,7 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@$(MAKE) fclean -C $(LIBFTDIR)
+	@$(MAKE) cleandirs
 	@echo $(Yellow) The program $(NAME) went missing $(Reset)
 
 cleandirs: | $(OBJDIR)

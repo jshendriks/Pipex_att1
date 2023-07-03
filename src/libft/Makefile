@@ -6,7 +6,7 @@
 #    By: jhendrik <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/28 10:58:27 by jhendrik      #+#    #+#                  #
-#    Updated: 2023/05/05 12:08:54 by jhendrik      ########   odam.nl          #
+#    Updated: 2023/07/03 13:57:09 by jhendrik      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,7 +121,7 @@ bonus:
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERFILES) | $(OBJDIR)
 	@mkdir -p $(@D)
-	@$(CC) -c $(CFLAGS) $(HEADERFILES) $<
+	@$(CC) -c $(CFLAGS) $<
 	@mv ./$(notdir $@) $(@D)	
 
 $(OBJDIR):
@@ -133,6 +133,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@$(MAKE) cleandirs
 	@echo $(Yellow) The archive $(NAME) fell into a black hole $(Reset)
 
 cleandirs: | $(OBJDIR)

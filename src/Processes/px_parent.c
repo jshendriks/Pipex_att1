@@ -6,26 +6,10 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 15:12:05 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/06 14:33:02 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/07/03 13:39:19 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./processes.h"
-
-/* static void	st_putsplit_fd(char **split, int fd)
-{
-	int	i;
-
-	if (split != NULL)
-	{
-		i = 0;
-		while(split[i])
-		{
-			ft_putstr_fd(split[i], fd);
-			write(fd, "\n", 1);
-			i++;
-		}
-	}
-} */
 
 static void	st_close_all(t_px_vars *buc)
 {

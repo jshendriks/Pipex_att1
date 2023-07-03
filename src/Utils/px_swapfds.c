@@ -6,7 +6,7 @@
 /*   By: jhendrik <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/25 12:33:30 by jhendrik      #+#    #+#                 */
-/*   Updated: 2023/06/16 09:49:56 by jhendrik      ########   odam.nl         */
+/*   Updated: 2023/07/03 13:50:05 by jhendrik      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include "./utils.h"
@@ -56,7 +56,7 @@ static int	st_give_fd(t_px_vars *buc, int i)
 	return (filefd);
 }
 
-int	px_swapfds_be(t_px_vars *buc, int *p_filefd, int i)
+int	px_swapfds_be(t_px_vars *buc, int i)
 {
 	int	filefd;
 
@@ -65,7 +65,6 @@ int	px_swapfds_be(t_px_vars *buc, int *p_filefd, int i)
 	if (access((buc->args)[i], F_OK) == -1)
 		return (-1);
 	filefd = st_give_fd(buc, i);
-	*p_filefd = filefd;
 	if (filefd == -1)
 	{
 		if (i == 1)
